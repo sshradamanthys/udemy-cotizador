@@ -1,8 +1,9 @@
 import Header from "./components/Header";
+import Form from "./components/Form";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
 `;
 
@@ -14,8 +15,10 @@ const ContainerForm = styled.div`
 function App() {
   return (
     <Container>
-      <Header titulo="Cotizador de Seguros" />
-      <ContainerForm>hi!</ContainerForm>
+      <Header />
+      <ContainerForm>
+        <Form />
+      </ContainerForm>
     </Container>
   );
 }

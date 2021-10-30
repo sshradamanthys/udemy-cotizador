@@ -14,10 +14,10 @@ const TextHeader = styled.h1`
   text-align: center;
 `;
 
-const Header = ({ titulo }) => {
+const Header = () => {
   return (
     <ContainerHeader>
-      <TextHeader>{titulo}</TextHeader>
+      <TextHeader>Cotizador de Seguros</TextHeader>
     </ContainerHeader>
   );
 };
