@@ -24,3 +24,6 @@ export const byBrand = (brand) => {
 
 // Calcula el tipo de seguro
 export const getPlan = (plan) => (plan === "basico" ? 1.2 : 1.5);
+
+// Muestra la primer letra mayuscula
+export const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);

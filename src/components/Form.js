@@ -57,7 +57,7 @@ const initialState = {
   plan: "",
 };
 
-const Form = () => {
+const Form = ({ setResumen }) => {
   const [data, setData] = useState(initialState);
   const [error, setError] = useState(false);
   const { brand, year, plan } = data;
@@ -81,22 +81,22 @@ const Form = () => {
     // base
     let resultado = 2000;
     // diferencia en a@os
-    console.log("type year", typeof year);
     const years = getYears(year);
-    console.log("type years", typeof years);
 
     // aplica precio segun a@o
     resultado -= (years * 3 * resultado) / 100;
-    console.log("year", resultado);
 
     // incremento por marca
     resultado *= byBrand(brand);
-    console.log("increment", resultado);
 
     // obtiene el plan
     const incrementByPlan = getPlan(plan);
     resultado = parseFloat(incrementByPlan * resultado).toFixed(2);
-    console.log("plan", resultado);
+
+    setResumen({
+      cotizacion: resultado,
+      data,
+    });
   };
 
   return (
