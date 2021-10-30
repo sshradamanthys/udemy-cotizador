@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 
 const Field = styled.div`
@@ -40,12 +41,56 @@ const Button = styled.button`
   }
 `;
 
+const Error = styled.div`
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const initialState = {
+  brand: "",
+  year: "",
+  plan: "",
+};
+
 const Form = () => {
+  const [data, setData] = useState(initialState);
+  const [error, setError] = useState(false);
+  const { brand, year, plan } = data;
+
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (brand.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      setError(true);
+      return;
+    }
+
+    setError(false);
+
+    /*todo
+     * obtener el precio segun el year, restar 3% por cada year
+     * segun la procedencia. Incremento: Americano 15%, Asiatico 5%, Europeo 30%
+     * plan. basico Inc 20%, completo 50%
+     */
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error ? <Error>Todos los campos son obligatorios</Error> : null}
       <Field>
         <Label>Marca</Label>
-        <Select name="marca">
+        <Select name="brand" value={brand} onChange={handleChange}>
           <option value="">-- Seleccione --</option>
           <option value="americano">Americano</option>
           <option value="europeo">Europeo</option>
@@ -54,7 +99,7 @@ const Form = () => {
       </Field>
       <Field>
         <Label>Año</Label>
-        <Select name="year">
+        <Select name="year" value={year} onChange={handleChange}>
           <option value="">-- Seleccione --</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
@@ -70,8 +115,22 @@ const Form = () => {
       </Field>
       <Field>
         <Label>Plan</Label>
-        <InputRadio type="radio" name="plan" value="basico" /> Básico
-        <InputRadio type="radio" name="plan" value="completo" /> Completo
+        <InputRadio
+          type="radio"
+          name="plan"
+          value="basico"
+          checked={plan === "basico"}
+          onChange={handleChange}
+        />{" "}
+        Básico
+        <InputRadio
+          type="radio"
+          name="plan"
+          value="completo"
+          checked={plan === "completo"}
+          onChange={handleChange}
+        />{" "}
+        Completo
       </Field>
       <Button type="submit">Cotizar</Button>
     </form>
