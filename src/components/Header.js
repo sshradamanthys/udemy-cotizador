@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 
 const ContainerHeader = styled.header`
   background-color: #26c6da;
-  padding: 10px;
+  padding: 0.5rem;
   font-weight: bold;
   color: #fff;
 `;
 
 const TextHeader = styled.h1`
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0;
   font-family: "Slabo 27px", serif;
   text-align: center;

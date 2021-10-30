@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { capitalize } from "../helper";
+import PropTypes from "prop-types";
 
 const ContainerResumen = styled.div`
   background-color: #00838f;
   color: white;
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
   text-align: center;
 `;
 
@@ -25,4 +26,7 @@ const Resumen = ({ data }) => {
   );
 };
 
+Resumen.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 export default Resumen;

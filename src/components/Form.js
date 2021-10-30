@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { getYears, byBrand, getPlan } from "../helper";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const Field = styled.div`
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   align-items: center;
 `;
 
@@ -15,26 +16,26 @@ const Label = styled.label`
 const Select = styled.select`
   display: block;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid #e1e1e1;
   -webkit-appearance: none;
 `;
 
 const InputRadio = styled.input`
-  margin: 0 1rem;
+  margin: 0 0.5rem;
 `;
 
 const Button = styled.button`
   background-color: #00838f;
   font-size: 16px;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   color: #fff;
   text-transform: uppercase;
   font-weight: bold;
   border: none;
   transition: background-color 0.3s ease;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:hover {
     background-color: #26c6da;
@@ -45,10 +46,10 @@ const Button = styled.button`
 const Error = styled.div`
   background-color: red;
   color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 100%;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const initialState = {
@@ -57,7 +58,7 @@ const initialState = {
   plan: "",
 };
 
-const Form = ({ setResumen }) => {
+const Form = ({ setResumen, setLoading }) => {
   const [data, setData] = useState(initialState);
   const [error, setError] = useState(false);
   const { brand, year, plan } = data;
@@ -93,10 +94,14 @@ const Form = ({ setResumen }) => {
     const incrementByPlan = getPlan(plan);
     resultado = parseFloat(incrementByPlan * resultado).toFixed(2);
 
-    setResumen({
-      cotizacion: resultado,
-      data,
-    });
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setResumen({
+        cotizacion: Number(resultado),
+        data,
+      });
+    }, 3000);
   };
 
   return (
@@ -149,6 +154,11 @@ const Form = ({ setResumen }) => {
       <Button type="submit">Cotizar</Button>
     </form>
   );
+};
+
+Form.propTypes = {
+  setResumen: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default Form;
