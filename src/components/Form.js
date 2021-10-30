@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getYears, byBrand, getPlan } from "../helper";
 import styled from "@emotion/styled";
 
 const Field = styled.div`
@@ -77,12 +78,25 @@ const Form = () => {
     }
 
     setError(false);
+    // base
+    let resultado = 2000;
+    // diferencia en a@os
+    console.log("type year", typeof year);
+    const years = getYears(year);
+    console.log("type years", typeof years);
 
-    /*todo
-     * obtener el precio segun el year, restar 3% por cada year
-     * segun la procedencia. Incremento: Americano 15%, Asiatico 5%, Europeo 30%
-     * plan. basico Inc 20%, completo 50%
-     */
+    // aplica precio segun a@o
+    resultado -= (years * 3 * resultado) / 100;
+    console.log("year", resultado);
+
+    // incremento por marca
+    resultado *= byBrand(brand);
+    console.log("increment", resultado);
+
+    // obtiene el plan
+    const incrementByPlan = getPlan(plan);
+    resultado = parseFloat(incrementByPlan * resultado).toFixed(2);
+    console.log("plan", resultado);
   };
 
   return (
